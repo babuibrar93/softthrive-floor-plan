@@ -1,0 +1,32 @@
+body {
+  background-color: #eee;
+}
+
+.createPlaneForm {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+.form {
+  
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+  padding: 10px;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+/* .buttons {
+  background-color: green !important;
+} */
+
+/* .planGrid {
+  display: flex;
+  margin-top: 5%;
+}
+.roomCard {
+  box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+} */

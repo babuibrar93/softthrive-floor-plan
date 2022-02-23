@@ -1,0 +1,28 @@
+[context.master.environment]
+REACT_APP_DEV_ENV = "sandbox"
+REACT_APP_DEV_LINK = "https://funds-map.herokuapp.com/"
+REACT_APP_PROD_ENV = "production"
+REACT_APP_PROD_LINK = "https://funds-map-prod.herokuapp.com/"
+REACT_APP_PROD_STATUS = "true"
+
+[context.nilay-working.environment]
+REACT_APP_DEV_ENV = "sandbox"
+REACT_APP_DEV_LINK = "https://funds-map.herokuapp.com/"
+REACT_APP_PROD_ENV = "production"
+REACT_APP_PROD_LINK = "https://funds-map-prod.herokuapp.com/"
+REACT_APP_PROD_STATUS = "false"
+
+[context.dinesh_branch.environment]
+REACT_APP_DEV_ENV = "sandbox"
+REACT_APP_DEV_LINK = "https://funds-map.herokuapp.com/"
+REACT_APP_PROD_ENV = "production"
+REACT_APP_PROD_LINK = "https://funds-map-prod.herokuapp.com/"
+REACT_APP_PROD_STATUS = "false"
+
+# no API server exists for other branches, but code will still want a URL here so need to set a "default"
+[context.branch-deploy.environment]
+REACT_APP_DEV_ENV = "sandbox"
+REACT_APP_DEV_LINK = "https://funds-map.herokuapp.com/"
+REACT_APP_PROD_ENV = "production"
+REACT_APP_PROD_LINK = "https://funds-map-prod.herokuapp.com/"
+REACT_APP_PROD_STATUS = "false"

@@ -13,7 +13,7 @@ import {
 import { useLocation } from "react-router-dom";
 import Draggable from "react-draggable";
 
-import style from "../styles/planStyles.css";
+import "../styles/planStyles.css";
 
 const Plan = () => {
   const { state } = useLocation();
@@ -21,40 +21,68 @@ const Plan = () => {
   console.log("Plan props", state);
   return (
     <>
-      <Grid container spacing={1}>
-        <Grid
-          item
-          xs={12}
-          md={6}
-          style={{ display: "flex", justifyContent: "space-evenly" }}
-          sx={{ mt: 5 }}
-        >
+      <Typography style={{fontSize: '100px'}}>Floor Plan</Typography>
+      <Typography>
+        Room Width - {state.roomWidth} || Room Height = {state.roomHeight}
+      </Typography>
+
+      <Grid container spacing={1} sx={{m:2}}>
+        <Grid>
           <Card
-            sx={{ p: 5 }}
             className="roomCard"
             style={{
               width: `${state.roomWidth}`,
               height: `${state.roomHeight}`,
+              position: "absolute",
+              backgroundColor: "#e3edf7",
               boxShadow:
-                "0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)",
+                "-6px -6px 12px hsla(0,0%,100%,.5),6px 6px 12px rgba(12,0,58,.1)",
             }}
-          ></Card>
-          <Draggable >
-            <Card
-              sx={{ p: 5 }}
-              className="roomCard"
-              style={{
-                width: `${state.rectangleWidth}`,
-                height: `${state.rectangleHeight}`,
-                cursor: 'move',
-                boxShadow:
-                  "0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)",
-              }}
-            ></Card>
-          </Draggable>
+          >
+            {state.newRectangleArray.map((rectangle) => {
+              if (
+                rectangle.rectangleName &&
+                rectangle.rectangleHeight &&
+                rectangle.rectangleWidth !== ""
+              ) {
+                return (
+                  <Draggable grid={[25, 25]} bounds="parent">
+                    <Card
+                      sx={{ p: 1 }}
+                      className="roomCard"
+                      style={{
+                        width: `${rectangle.rectangleWidth}`,
+                        height: `${rectangle.rectangleHeight}`,
+                        cursor: "move",
+                        border: "1px solid black",
+                        background: "red",
+                        position: "absolute",
+                        backgroundColor: "#edf0f3",
+                        boxShadow:
+                          "-6px -6px 12px hsla(0,0%,100%,.5),6px 6px 12px rgba(12,0,58,.1)",
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: "100%",
+                          display: "flex",
+                          justifyContent: "center",
+                          color: "black",
+                          alignItems: "center",
+                        }}
+                      >
+                        {rectangle.rectangleName}
+                      </div>
+                    </Card>
+                  </Draggable>
+                );
+              }
+            })}
+          </Card>
         </Grid>
       </Grid>
     </>
+    // </div>
   );
 };
 

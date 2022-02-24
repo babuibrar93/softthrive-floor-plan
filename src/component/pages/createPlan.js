@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import rectangleLayout from "./rectangle.js";
 
 import {
   Card,
@@ -144,7 +143,7 @@ const CreatePlan = () => {
                 <TextField
                   color="success"
                   label="Room Width"
-                  placeholder="Enter Room Width"
+                  placeholder="Room Width"
                   value={roomWidth}
                   InputProps={{
                     endAdornment: (
@@ -156,7 +155,7 @@ const CreatePlan = () => {
                 <TextField
                   color="success"
                   label="Room Length"
-                  placeholder="Enter Room Length"
+                  placeholder="Room Length"
                   value={roomLength}
                   onChange={(e) => setRoomLength(e.target.value)}
                   InputProps={{
@@ -209,7 +208,7 @@ const CreatePlan = () => {
                       <TextField
                         key={index}
                         color="success"
-                        label="Rectangle Name"
+                        label="Name"
                         placeholder="Name"
                         value={item.rectangleName}
                         name="rectangleName"
@@ -218,7 +217,7 @@ const CreatePlan = () => {
                       />
                       <TextField
                         color="success"
-                        label="Rectangle Width"
+                        label="Width"
                         placeholder="Width"
                         value={item.rectangleWidth}
                         name="rectangleWidth"
@@ -232,7 +231,7 @@ const CreatePlan = () => {
                       />
                       <TextField
                         color="success"
-                        label="Rectangle Length"
+                        label="Length"
                         placeholder="Length"
                         value={item.rectangleLength}
                         name="rectangleLength"

@@ -12,6 +12,7 @@ import {
   Typography,
   ButtonGroup,
   FormControl,
+  InputAdornment,
 } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 
@@ -19,19 +20,20 @@ import "../styles/planStyles.css";
 
 const CreatePlan = () => {
   const navigate = useNavigate();
-  const [roomWidth, setRoomWidth] = useState("1250px");
-  const [roomHeight, setRoomHeight] = useState("500px");
+  const actualRoomWidth = 1250;
+  const [roomWidth, setRoomWidth] = useState("");
+  const [roomLength, setRoomLength] = useState("");
 
   let [count, setCount] = useState(0);
-
-  // const [rectangleName, setRectangleName] = useState("ff");
-  // const [rectangleWidth, setRectangleWidth] = useState("200px");
-  // const [rectangleHeight, setRectangleHeight] = useState("100px");
 
   const [rectangleArray, setRectangleArray] = useState([]);
   const newRectangleArray = rectangleArray.slice(0, 10);
 
   const [showMessage, setShowMessage] = useState(false);
+  const [showErrorMessage, setErrorShowMessage] = useState(false);
+
+  let ratio = actualRoomWidth / roomWidth;
+  let newRoomLength = ratio * roomLength;
 
   const handleDecrement = (e, index) => {
     e.preventDefault();
@@ -64,7 +66,7 @@ const CreatePlan = () => {
     array.push({
       rectangleName: "",
       rectangleWidth: "",
-      rectangleHeight: "",
+      rectangleLength: "",
     });
     setRectangleArray(array);
 
@@ -75,19 +77,28 @@ const CreatePlan = () => {
     e.preventDefault();
     console.log("handleNextButton");
 
-    navigate("/plan", {
-      state: {
-        roomWidth,
-        roomHeight,
-        newRectangleArray,
-      },
-    });
+    if (roomLength && roomWidth !== "") {
+      navigate("/plan", {
+        state: {
+          ratio,
+          roomWidth,
+          roomLength,
+          actualRoomWidth,
+          newRoomLength,
+          newRectangleArray,
+        },
+      });
+    } else {
+      setErrorShowMessage(true);
+    }
   };
 
   const changeFeild = (e, index) => {
     e.preventDefault();
     let array = [...rectangleArray];
-    array[index][e.target.name] = e.target.value;
+    array[index][e.target.name] = e.target.value * ratio;
+    console.log("het", (array[index][e.target.name] = e.target.value));
+    console.log("array", array);
     setRectangleArray(array);
   };
 
@@ -98,6 +109,9 @@ const CreatePlan = () => {
           <Typography style={{ fontSize: "100px" }}>Floor Plan</Typography>
           <Grid container spacing={1}>
             <Grid item xs={12} md={12}>
+              {showErrorMessage === true ? (
+                <Typography style={{color: 'red'}}>Please enter the feilds below.</Typography>
+              ) : null}
               <Card
                 sx={{
                   display: "flex",
@@ -116,14 +130,24 @@ const CreatePlan = () => {
                   label="Room Width"
                   placeholder="Enter Room Width"
                   value={roomWidth}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">M</InputAdornment>
+                    ),
+                  }}
                   onChange={(e) => setRoomWidth(e.target.value)}
                 />
                 <TextField
                   color="success"
-                  label="Room Height"
-                  placeholder="Enter Room Height"
-                  value={roomHeight}
-                  onChange={(e) => setRoomHeight(e.target.value)}
+                  label="Room Length"
+                  placeholder="Enter Room Length"
+                  value={roomLength}
+                  onChange={(e) => setRoomLength(e.target.value)}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">M</InputAdornment>
+                    ),
+                  }}
                 />
               </Card>
             </Grid>
@@ -137,7 +161,9 @@ const CreatePlan = () => {
                   className="buttonGroup"
                   size="small"
                 >
-                  <Button className="buttons">Number 0f Rectangles - {count} </Button>
+                  <Button className="buttons">
+                    Number 0f Rectangles - {count}{" "}
+                  </Button>
                   <Button className="buttons" onClick={handleIncrement}>
                     +
                   </Button>
@@ -182,15 +208,25 @@ const CreatePlan = () => {
                         name="rectangleWidth"
                         onChange={(e) => changeFeild(e, index)}
                         style={{ width: "20%" }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">M</InputAdornment>
+                          ),
+                        }}
                       />
                       <TextField
                         color="success"
-                        label="Rectangle Height"
-                        placeholder="Enter Rectangle Height"
-                        value={item.rectangleHeight}
-                        name="rectangleHeight"
+                        label="Rectangle Length"
+                        placeholder="Enter Rectangle Length"
+                        value={item.rectangleLength}
+                        name="rectangleLength"
                         onChange={(e) => changeFeild(e, index)}
                         style={{ width: "20%" }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">M</InputAdornment>
+                          ),
+                        }}
                       />
                       <Delete
                         sx={{ color: "black" }}

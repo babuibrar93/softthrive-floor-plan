@@ -18,31 +18,31 @@ import "../styles/planStyles.css";
 const Plan = () => {
   const { state } = useLocation();
 
-  console.log("Plan props", state);
   return (
     <>
-      <Typography style={{fontSize: '100px'}}>Floor Plan</Typography>
+      <Typography style={{ fontSize: "100px" }}>Floor Plan</Typography>
       <Typography>
-        Room Width - {state.roomWidth} || Room Height = {state.roomHeight}
+        Room Width - {state.roomWidth} meter || Room Length = {state.roomLength}{" "}
+        meter
       </Typography>
 
-      <Grid container spacing={1} sx={{m:2}}>
+      <Grid container spacing={1} sx={{ m: 2 }}>
         <Grid>
           <Card
             className="roomCard"
             style={{
-              width: `${state.roomWidth}`,
-              height: `${state.roomHeight}`,
+              width: `${state.actualRoomWidth}px`,
+              height: `${state.newRoomLength}px`,
               position: "absolute",
               backgroundColor: "#e3edf7",
               boxShadow:
                 "-6px -6px 12px hsla(0,0%,100%,.5),6px 6px 12px rgba(12,0,58,.1)",
             }}
           >
-            {state.newRectangleArray.map((rectangle) => {
+            {state?.newRectangleArray?.map((rectangle) => {
               if (
                 rectangle.rectangleName &&
-                rectangle.rectangleHeight &&
+                rectangle.rectangleLength &&
                 rectangle.rectangleWidth !== ""
               ) {
                 return (
@@ -51,8 +51,8 @@ const Plan = () => {
                       sx={{ p: 1 }}
                       className="roomCard"
                       style={{
-                        width: `${rectangle.rectangleWidth}`,
-                        height: `${rectangle.rectangleHeight}`,
+                        width: `${rectangle.rectangleWidth * state.ratio}px`,
+                        height: `${rectangle.rectangleLength * state.ratio}px`,
                         cursor: "move",
                         border: "1px solid black",
                         background: "red",

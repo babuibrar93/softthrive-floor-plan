@@ -35,6 +35,8 @@ const CreatePlan = () => {
   let ratio = actualRoomWidth / roomWidth;
   let newRoomLength = ratio * roomLength;
 
+  let windowWidth = Math.abs(window.innerWidth - actualRoomWidth) / 2;
+
   const handleDecrement = (e, index) => {
     e.preventDefault();
     count > 0 && setCount(count - 1);
@@ -72,14 +74,20 @@ const CreatePlan = () => {
 
     return () => clearTimeout(timer);
   };
-
+  console.log("newRectangleArray", rectangleArray);
   const handleNextButton = (e) => {
     e.preventDefault();
-    console.log("handleNextButton");
 
-    if (roomLength && roomWidth !== "") {
+    if (
+      roomLength &&
+      roomWidth &&
+      rectangleArray[0].rectangleName &&
+      rectangleArray[0].rectangleWidth &&
+      rectangleArray[0].rectangleLength !== ""
+    ) {
       navigate("/plan", {
         state: {
+          windowWidth,
           ratio,
           roomWidth,
           roomLength,
@@ -90,6 +98,12 @@ const CreatePlan = () => {
       });
     } else {
       setErrorShowMessage(true);
+
+      const timer = setTimeout(() => {
+        setErrorShowMessage(false);
+      }, 5000);
+
+      return () => clearTimeout(timer);
     }
   };
 
@@ -110,7 +124,9 @@ const CreatePlan = () => {
           <Grid container spacing={1}>
             <Grid item xs={12} md={12}>
               {showErrorMessage === true ? (
-                <Typography style={{color: 'red'}}>Please enter the feilds below.</Typography>
+                <Typography style={{ color: "red" }}>
+                  Please enter the feilds below.
+                </Typography>
               ) : null}
               <Card
                 sx={{
@@ -194,7 +210,7 @@ const CreatePlan = () => {
                         key={index}
                         color="success"
                         label="Rectangle Name"
-                        placeholder="Enter Rectangle Name"
+                        placeholder="Name"
                         value={item.rectangleName}
                         name="rectangleName"
                         onChange={(e) => changeFeild(e, index)}
@@ -203,7 +219,7 @@ const CreatePlan = () => {
                       <TextField
                         color="success"
                         label="Rectangle Width"
-                        placeholder="Enter Rectangle Width"
+                        placeholder="Width"
                         value={item.rectangleWidth}
                         name="rectangleWidth"
                         onChange={(e) => changeFeild(e, index)}
@@ -217,7 +233,7 @@ const CreatePlan = () => {
                       <TextField
                         color="success"
                         label="Rectangle Length"
-                        placeholder="Enter Rectangle Length"
+                        placeholder="Length"
                         value={item.rectangleLength}
                         name="rectangleLength"
                         onChange={(e) => changeFeild(e, index)}

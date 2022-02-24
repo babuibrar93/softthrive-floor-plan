@@ -22,7 +22,7 @@ const Plan = () => {
     <>
       <Typography style={{ fontSize: "100px" }}>Floor Plan</Typography>
       <Typography>
-        Room Width - {state.roomWidth} meter || Room Length = {state.roomLength}{" "}
+        Room Width - {state.roomWidth} meter || Room Length - {state.roomLength}{" "}
         meter
       </Typography>
 
@@ -35,6 +35,7 @@ const Plan = () => {
               height: `${state.newRoomLength}px`,
               position: "absolute",
               backgroundColor: "#e3edf7",
+              left: `${state.windowWidth}px`,
               boxShadow:
                 "-6px -6px 12px hsla(0,0%,100%,.5),6px 6px 12px rgba(12,0,58,.1)",
             }}
